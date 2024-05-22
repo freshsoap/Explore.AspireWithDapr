@@ -1,0 +1,60 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/dotnet
+{
+	"name": "C# (.NET)",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"image": "mcr.microsoft.com/devcontainers/dotnet:1-8.0-bookworm",
+	"features": {
+		"ghcr.io/dapr/cli/dapr-cli:0": {},
+		"ghcr.io/elanhasson/devcontainer-features/dotnet-aspire-daily:1": {},
+		"ghcr.io/devcontainers/features/docker-in-docker:2": {}
+	},
+
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	// "features": {},
+
+    // Run Bash script in .devcontainer directory
+    "postCreateCommand": "/bin/bash ./.devcontainer/post-create.sh > ./.devcontainer/post-create.log",
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	"forwardPorts": [15278, 5018],
+	"portsAttributes": {
+		"6379": {
+			"label": "Redis-6379",
+			"protocol": "http"
+		},
+		"9411": {
+			"label": "Zipkin-9411",
+			"protocol": "http"
+		},
+		"17267": {
+			"label": "https-Aspire-AppHost",
+			"protocol": "https"
+		},
+		"15278": {
+			"label": "http-Aspire-AppHost",
+			"protocol": "http"
+		},
+		"5018": {
+			"label": "http-webfrontend",
+			"protocol": "http"
+		}
+	},
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "dotnet restore",
+
+	// Configure tool-specific properties.
+	"customizations": {
+        "vscode": {
+            "extensions": [
+				"alefragnani.bookmarks",
+				"ms-dotnettools.csdevkit"
+			]
+		}
+	}
+
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
+	
+}
